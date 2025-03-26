@@ -1,0 +1,10 @@
+.brands{
+
+    background-color: var(--color-white);
+    &__list{
+        max-width: 1920px;
+        gap: 100px;
+        display: flex;
+        align-items: center;
+    }
+}

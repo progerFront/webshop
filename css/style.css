@@ -1,0 +1,483 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "Bebas Neue Cyrillic", sans-serif;
+  src: url(/font/BebasNeueCyrillic.woff2);
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Bebas Neue", sans-serif;
+  src: url(/font/BebasNeueBold.woff2);
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  src: url(/font/Inter-LightBETA.woff2);
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  src: url(/font/Inter-Medium.woff2);
+  font-weight: 500;
+}
+@font-face {
+  font-family: "Inter", sans-serif;
+  src: url(/font/Inter-Regular.woff2);
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  src: url(/font/Montserrat-Bold.woff2);
+  font-weight: 700;
+}
+@font-face {
+  font-family: "Montserrat", sans-serif;
+  src: url(/font/Montserrat-SemiBoldItalic.woff2);
+  font-weight: 800;
+}
+@font-face {
+  font-family: "Open Sans", sans-serif;
+  src: url(/font/OpenSans-Regular.woff2);
+  font-weight: 400;
+}
+/**
+  Нормализация блочной модели
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/**
+  Убираем внутренние отступы слева тегам списков,
+  у которых есть атрибут class
+ */
+:where(ul, ol):where([class]) {
+  padding-left: 0;
+}
+
+/**
+  Убираем внешние отступы body и двум другим тегам,
+  у которых есть атрибут class
+ */
+body,
+:where(blockquote, figure):where([class]) {
+  margin: 0;
+}
+
+/**
+  Убираем внешние отступы вертикали нужным тегам,
+  у которых есть атрибут class
+ */
+:where(h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+dl):where([class]) {
+  margin-block: 0;
+}
+
+:where(dd[class]) {
+  margin-left: 0;
+}
+
+:where(fieldset[class]) {
+  margin-left: 0;
+  padding: 0;
+  border: none;
+}
+
+/**
+  Убираем стандартный маркер маркированному списку,
+  у которого есть атрибут class
+ */
+:where(ul[class]) {
+  list-style: none;
+}
+
+/**
+  Обнуляем вертикальные внешние отступы параграфа,
+  объявляем локальную переменную для внешнего отступа вниз,
+  чтобы избежать взаимодействие с более сложным селектором
+ */
+p {
+  --paragraphMarginBottom: 24px;
+  margin-block: 0;
+}
+
+/**
+  Внешний отступ вниз для параграфа без атрибута class,
+  который расположен не последним среди своих соседних элементов
+ */
+p:where(:not([class]):not(:last-child)) {
+  margin-bottom: var(--paragraphMarginBottom);
+}
+
+/**
+  Упрощаем работу с изображениями
+ */
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/**
+  Наследуем свойства шрифт для полей ввода
+ */
+input,
+textarea,
+select,
+button {
+  font: inherit;
+}
+
+html {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  height: 100%;
+  /**
+    Плавный скролл
+   */
+  scroll-behavior: smooth;
+}
+
+body {
+  /**
+    Пригодится в большинстве ситуаций
+    (когда, например, нужно будет "прижать" футер к низу сайта)
+   */
+  min-height: 100%;
+  /**
+    Унифицированный интерлиньяж
+   */
+  line-height: 1.5;
+}
+
+/**
+  Приводим к единому цвету svg-элементы
+ */
+svg *[fill] {
+  fill: currentColor;
+}
+
+svg *[stroke] {
+  stroke: currentColor;
+}
+
+/**
+  Чиним баг задержки смены цвета при взаимодействии с svg-элементами
+ */
+svg * {
+  transition-property: fill, stroke;
+}
+
+/**
+  Удаляем все анимации и переходы для людей,
+  которые предпочитают их не использовать
+ */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+:root {
+  --color-black: #101010;
+  --color-dark: #34312D;
+  --color-dark-grey: #2E2E2E;
+  --color-grey-1: #4C4C4C;
+  --color-grey-2: #4C4C4C;
+  --color-light-grey:#B3B3B3;
+  --color-grey-3: #E5E5E5;
+  --color-bg: #F8F8F8;
+  --color-white: #ffffff;
+  --color-orange: #F57520;
+  --color-orange-2: #EB6B16;
+  --color-orange-3: #E1610C;
+  --color-orange-4: #D75702;
+  --color-red: #F53A20;
+  --color-banner: #131313;
+  --color-green: #4D932C;
+}
+
+.intro {
+  background-image: url(/images/bg_intro.jpg);
+  object-fit: contain;
+  background-repeat: no-repeat;
+  height: 1050px;
+  width: max-content;
+  box-sizing: border-box;
+  width: 1920px;
+}
+
+.wrap {
+  max-width: 1280px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.intro-header {
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+.intro-header__logo {
+  width: 87px;
+  height: 47px;
+  margin-right: 245px;
+}
+.intro-header__menu {
+  display: flex;
+  height: 20px;
+  margin-right: 75px;
+}
+.intro-header__list {
+  display: flex;
+  width: 615px;
+  gap: 32px;
+}
+.intro-header__item-text {
+  height: 20px;
+  color: var(--color-white);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 160%;
+  font-family: "inter", sans-serif;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.intro-header__item-text:hover {
+  color: var(--color-orange);
+  transition: 0.5s;
+}
+.intro-header__list-icon {
+  display: flex;
+  gap: 25px;
+  margin-right: 50px;
+}
+.intro-header__burger {
+  background-color: rgba(255, 255, 255, 0);
+  border: 0;
+  cursor: pointer;
+}
+
+.frame {
+  width: 500px;
+  margin: 0 auto;
+  border-radius: 10px;
+  border: 1px solid var(--color-grey-1);
+  padding: 40px 40px 0 40px;
+  background-color: var(--color-black);
+}
+.frame-dialog__list {
+  display: flex;
+  justify-content: space-between;
+}
+.frame-dialog__item-right {
+  font-family: "inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-3);
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+.frame-dialog__item-left {
+  font-family: "inter", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-grey-3);
+  margin-bottom: 24px;
+  cursor: pointer;
+}
+.frame-dialog__text-left {
+  color: var(--color-grey-3);
+  text-decoration: none;
+}
+.frame-dialog__text-left:hover {
+  color: var(--color-orange);
+  transition: 0.25s;
+}
+.frame-dialog__text-right {
+  color: var(--color-grey-3);
+  text-decoration: none;
+}
+.frame-dialog__text-right:hover {
+  color: var(--color-orange);
+  transition: 0.25s;
+}
+.frame__img {
+  margin: 0 auto;
+}
+
+.input {
+  padding: 0;
+}
+.input-dialog__input {
+  width: 260px;
+  height: 44px;
+  background-color: var(--color-black);
+  border: 1px solid var(--color-grey-1);
+  color: var(--color-grey-2);
+  background-image: url(/images/icon/search.svg);
+  background-position: 220px;
+  background-repeat: no-repeat;
+  padding: 0 16px;
+  font-family: "inter", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: auto;
+}
+
+/*main*/
+.intro-main {
+  display: flex;
+  margin-top: 80px;
+  flex-direction: column;
+}
+.intro-main__title {
+  font-family: "Bebas Neue Cyrillic", sans-serif;
+  font-size: 110px;
+  letter-spacing: 2px;
+  font-weight: 400;
+  width: 680px;
+  height: 225px;
+  color: var(--color-white);
+  line-height: 1.2;
+  margin-bottom: 50px;
+}
+.intro-main__text {
+  width: 645px;
+  font-family: "inter", sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--color-white);
+}
+.intro-main__btn {
+  width: 180px;
+  height: 52px;
+  background-color: var(--color-orange);
+  border-radius: 10px;
+  font-family: "inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-white);
+  margin-top: 40px;
+  cursor: pointer;
+}
+
+.intro-elipce {
+  display: flex;
+  justify-content: center;
+  margin-top: 150px;
+}
+.intro-elipce__list {
+  display: flex;
+  gap: 16px;
+}
+.intro-elipce__item {
+  width: 12px;
+  height: 12px;
+}
+.intro-elipce__elipce {
+  width: 12px;
+  height: 12px;
+  background: var(--color-grey-1);
+  border-radius: 50%;
+}
+.intro-elipce__elipce:hover {
+  left: -2px;
+  top: -2px;
+  background: var(--color-orange);
+  width: 150%;
+  height: 150%;
+  border-radius: 50%;
+  transition: 0.5s;
+}
+
+.intro-footer {
+  display: flex;
+  margin-top: 60px;
+}
+.intro-footer__block {
+  position: relative;
+  display: flex;
+  height: 205px;
+  justify-content: center;
+  flex-direction: column;
+}
+.intro-footer__block:hover {
+  top: -30px;
+  bottom: 30px;
+  height: 265px;
+  border-radius: 0 10px 10px 0;
+  transition: 0.2s;
+}
+.intro-footer__title {
+  font-family: "inter", sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--color-white);
+  letter-spacing: 1%;
+  margin-bottom: 40px;
+}
+.intro-footer__text {
+  font-family: "inter", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-orange);
+  letter-spacing: 1%;
+  text-decoration: none;
+}
+
+.banner {
+  background-color: var(--color-banner);
+}
+
+.grey {
+  background-color: var(--color-dark-grey);
+}
+
+.center {
+  width: 420px;
+  padding-left: 50px;
+  padding-right: 100px;
+}
+
+.left {
+  width: 750px;
+  padding-left: 368px;
+  padding-right: 86px;
+}
+.left_text {
+  width: 293px;
+}
+
+.right {
+  width: 750px;
+  padding-left: 50px;
+}
+
+.brands {
+  background-color: var(--color-white);
+}
+.brands__list {
+  max-width: 1920px;
+  gap: 100px;
+  display: flex;
+  align-items: center;
+}
+
+/*# sourceMappingURL=style.css.map */
